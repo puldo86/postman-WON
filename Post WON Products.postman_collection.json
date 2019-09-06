@@ -1,0 +1,681 @@
+{
+	"info": {
+		"_postman_id": "20c2a4ab-a6c6-48fb-859e-082a2042170f",
+		"name": "Post WON Products",
+		"description": "Collection of POST messages to generate Whatson Products.\nMetadata and keys match the current data in WONT (28-08-2019).\nAll messages are POST messages, but easily can be converted to PUT messages (same endpoint) \n\nPlease note:\n- Each endpoint has an environment variable, so check which environment you fire your POST/PUTs to (variables available in separate postman export)\n- DELETES are not yet incorporated. \n-First generate a Series, After this a linked Season, and after that several episodes. \n-Programs (all products not linked to a serie/season) have fixed parent keys.\n\n\t165740 for Films programs\n\t165741 for Documentaire programs\n\t165742 for Cabaret programs\n\t165743 for Muziek programs\n\n",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Series/ParentSerie",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "e8e216b9-a49d-4dd6-ba57-d89971665294",
+						"exec": [
+							"var moment = require('moment')\r",
+							"pm.globals.set(\"DateModified\", moment().format(\"YYYY-MM-DDTHH:mm:ss.000+02:00\"))\r",
+							"\r",
+							"//pm.environment.set(\"Start-Time\", moment().subtract(30, 'minutes').toISOString())\r",
+							"//pm.environment.set(\"End-Time\", moment().add(30, 'minutes').toISOString())"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "de929f75-fe44-4d0e-871a-2c60e5597f0f",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([201,202]);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"Products\": [\n        {\n            \"Header\": {\n                \"Key\": \"1000904\",\n                \"ExternalKey\": \"500504\",\n                \"DateCreated\": \"2019-05-27T10:44:35.020+02:00\",\n                \"DateModified\": \"{{DateModified}}\"\n            },\n            \"Body\": {\n                \"AdditionalKeys\": {\n                    \"KeySeries\": \"1000904\",\n                    \"KeySeason\": \"\",\n                    \"KeyEpisode\": \"\",\n                    \"ExternalKeySeries\": \"500504\",\n                    \"ExternalKeySeason\": \"\",\n                    \"ExternalKeyEpisode\": \"\"\n                },\n                \"Type\": \"Series\",\n                \"Title\": \"De Wondere Wereld Van What's On.\",\n                \"TitleInPlanning\": \"De Wondere Wereld Van What's On.\",\n                \"Description\": \"In de wondere wereld van Whats'on nemen we een kijkje in de keuken van de RTL XL keten. Welke Posts komen erdoor, en welke PUTs worden er correct afgehandeld? Wie weet de waarheid? Only time will tell...\",\n                \"Genre\": \"Kids:Spektakel\",\n                \"NicamRating\": \"6-g\",\n                \"SalesGenre\": \"Kinderprogramma\",\n                \"SeasonNumber\": 0,\n                \"EpisodeNumber\": 0,\n                \"Distributor\": \"\",\n                \"Sequential\": \"true\",\n                \"ProductionYear\": \"2018\",\n                \"ProductionCountry\": \"Canada\",\n                \"Duration\": \"00:45:00\",\n                \"ContractNumber\": \"\",\n                \"Subtype\": \"Amusement\",\n                \"imdbTitle\": \"\",\n                \"imdbScore\": \"\",\n                \"Active\": \"True\",\n                \"CategoryKey\": \"\",\n                \"CompanyKey\": \"\"\n            }\n        }\n    ]\n}"
+				},
+				"url": {
+					"raw": "{{Environment}}/whatson/whatson-adapter/api/Product",
+					"host": [
+						"{{Environment}}"
+					],
+					"path": [
+						"whatson",
+						"whatson-adapter",
+						"api",
+						"Product"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Season/Serie",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "e8e216b9-a49d-4dd6-ba57-d89971665294",
+						"exec": [
+							"var moment = require('moment')\r",
+							"pm.globals.set(\"DateModified\", moment().format(\"YYYY-MM-DDTHH:mm:ss.000+02:00\"))\r",
+							"\r",
+							"//pm.environment.set(\"Start-Time\", moment().subtract(30, 'minutes').toISOString())\r",
+							"//pm.environment.set(\"End-Time\", moment().add(30, 'minutes').toISOString())"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "955d3da7-301c-4e2e-b798-481c6bff5ce4",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([201,202]);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"Products\": [\n        {\n            \"Header\": {\n                \"Key\": \"1000905\",\n                \"ExternalKey\": \"500505\",\n                \"DateCreated\": \"2019-05-27T10:46:29.223+02:00\",\n                \"DateModified\": \"{{DateModified}}\"\n            },\n            \"Body\": {\n                \"AdditionalKeys\": {\n                    \"KeySeries\": \"1000904\",\n                    \"KeySeason\": \"1000905\",\n                    \"KeyEpisode\": \"\",\n                    \"ExternalKeySeries\": \"500504\",\n                    \"ExternalKeySeason\": \"500505\",\n                    \"ExternalKeyEpisode\": \"\"\n                },\n                \"Type\": \"Season\",\n                \"Title\": \"Voorjaar 2019\",\n                \"TitleInPlanning\": \"Voorjaar 2019\",\n                \"Description\": \"\",\n                \"Genre\": \"\",\n                \"NicamRating\": \"AL\",\n                \"SalesGenre\": \"Overig\",\n                \"SeasonNumber\": 1,\n                \"EpisodeNumber\": 0,\n                \"Distributor\": \"\",\n                \"Sequential\": \"False\",\n                \"ProductionYear\": \"2019\",\n                \"ProductionCountry\": \"\",\n                \"Duration\": \"00:46:00\",\n                \"ContractNumber\": \"\",\n                \"Subtype\": \"\",\n                \"imdbTitle\": \"\",\n                \"imdbScore\": \"\",\n                \"Active\": \"True\",\n                \"CategoryKey\": \"\",\n                \"CompanyKey\": \"\"\n            }\n        }\n    ]\n}"
+				},
+				"url": {
+					"raw": "{{Environment}}/whatson/whatson-adapter/api/Product",
+					"host": [
+						"{{Environment}}"
+					],
+					"path": [
+						"whatson",
+						"whatson-adapter",
+						"api",
+						"Product"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Episode/Episode 1",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "e8e216b9-a49d-4dd6-ba57-d89971665294",
+						"exec": [
+							"var moment = require('moment')\r",
+							"pm.globals.set(\"DateModified\", moment().format(\"YYYY-MM-DDTHH:mm:ss.000+02:00\"))\r",
+							"\r",
+							"//pm.environment.set(\"Start-Time\", moment().subtract(30, 'minutes').toISOString())\r",
+							"//pm.environment.set(\"End-Time\", moment().add(30, 'minutes').toISOString())"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "5da62363-a747-4394-b924-f35f23542d23",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([201,202]);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"Products\": [\n        {\n            \"Header\": {\n                \"Key\": \"1000906\",\n                \"ExternalKey\": \"500506\",\n                \"DateCreated\": \"2019-05-27T10:47:21.411+02:00\",\n                \"DateModified\": \"{{DateModified}}\"\n            },\n            \"Body\": {\n                \"AdditionalKeys\": {\n                    \"KeySeries\": \"1000904\",\n                    \"KeySeason\": \"1000905\",\n                    \"KeyEpisode\": \"1000906\",\n                    \"ExternalKeySeries\": \"500504\",\n                    \"ExternalKeySeason\": \"500505\",\n                    \"ExternalKeyEpisode\": \"500506\"\n                },\n                \"Type\": \"Episode\",\n                \"Title\": \"DWWVWON Aflevering 1\",\n                \"TitleInPlanning\": \"Voorjaar 2019 abcd\",\n                \"Description\": \"In deze eerste aflevering maken we kennis met de wondere wereld van Whats'On\",\n                \"Genre\": \"Actie:Muziek,Lifestyle:Rampen\",\n                \"NicamRating\": \"12-d\",\n                \"SalesGenre\": \"Overig\",\n                \"SeasonNumber\": 1,\n                \"EpisodeNumber\": 1,\n                \"Distributor\": \"\",\n                \"Sequential\": \"False\",\n                \"ProductionYear\": \"2019\",\n                \"ProductionCountry\": \"Argentina,Belgium,Brazil\",\n                \"Duration\": \"00:46:00\",\n                \"ContractNumber\": \"\",\n                \"Subtype\": \"\",\n                \"imdbTitle\": \"\",\n                \"imdbScore\": \"\",\n                \"Active\": \"True\",\n                \"CategoryKey\": \"\",\n                \"CompanyKey\": \"\"\n            }\n        }\n    ]\n}"
+				},
+				"url": {
+					"raw": "{{Environment}}/whatson/whatson-adapter/api/Product",
+					"host": [
+						"{{Environment}}"
+					],
+					"path": [
+						"whatson",
+						"whatson-adapter",
+						"api",
+						"Product"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Episode/Episode 2",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "e8e216b9-a49d-4dd6-ba57-d89971665294",
+						"exec": [
+							"var moment = require('moment')\r",
+							"pm.globals.set(\"DateModified\", moment().format(\"YYYY-MM-DDTHH:mm:ss.000+02:00\"))\r",
+							"\r",
+							"//pm.environment.set(\"Start-Time\", moment().subtract(30, 'minutes').toISOString())\r",
+							"//pm.environment.set(\"End-Time\", moment().add(30, 'minutes').toISOString())"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "8f493e95-9172-478a-9c54-9e3f6c6b88d5",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([201,202]);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"Products\": [\n        {\n            \"Header\": {\n                \"Key\": \"1000907\",\n                \"ExternalKey\": \"500507\",\n                \"DateCreated\": \"2019-05-27T10:47:21.426+02:00\",\n                \"DateModified\": \"{{DateModified}}\"\n            },\n            \"Body\": {\n                \"AdditionalKeys\": {\n                    \"KeySeries\": \"1000904\",\n                    \"KeySeason\": \"1000905\",\n                    \"KeyEpisode\": \"1000907\",\n                    \"ExternalKeySeries\": \"500504\",\n                    \"ExternalKeySeason\": \"500505\",\n                    \"ExternalKeyEpisode\": \"500507\"\n                },\n                \"Type\": \"Episode\",\n                \"Title\": \"DWWVW Aflevering 2\",\n                \"TitleInPlanning\": \"Voorjaar 2019 abcd\",\n                \"Description\": \"long description printed press\",\n                \"Genre\": \"\",\n                \"NicamRating\": \"\",\n                \"SalesGenre\": \"Overig\",\n                \"SeasonNumber\": 1,\n                \"EpisodeNumber\": 2,\n                \"Distributor\": \"\",\n                \"Sequential\": \"False\",\n                \"ProductionYear\": \"0\",\n                \"ProductionCountry\": \"\",\n                \"Duration\": \"00:45:00\",\n                \"ContractNumber\": \"\",\n                \"Subtype\": \"\",\n                \"imdbTitle\": \"\",\n                \"imdbScore\": \"\",\n                \"Active\": \"True\",\n                \"CategoryKey\": \"\",\n                \"CompanyKey\": \"\"\n            }\n        }\n    ]\n}"
+				},
+				"url": {
+					"raw": "{{Environment}}/whatson/whatson-adapter/api/Product",
+					"host": [
+						"{{Environment}}"
+					],
+					"path": [
+						"whatson",
+						"whatson-adapter",
+						"api",
+						"Product"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Episode/Episode 3",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "e8e216b9-a49d-4dd6-ba57-d89971665294",
+						"exec": [
+							"var moment = require('moment')\r",
+							"pm.globals.set(\"DateModified\", moment().format(\"YYYY-MM-DDTHH:mm:ss.000+02:00\"))\r",
+							"\r",
+							"//pm.environment.set(\"Start-Time\", moment().subtract(30, 'minutes').toISOString())\r",
+							"//pm.environment.set(\"End-Time\", moment().add(30, 'minutes').toISOString())"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "8f493e95-9172-478a-9c54-9e3f6c6b88d5",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([201,202]);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"Products\": [\n        {\n            \"Header\": {\n                \"Key\": \"1000908\",\n                \"ExternalKey\": \"500508\",\n                \"DateCreated\": \"2019-05-27T10:47:21.432+02:00\",\n                \"DateModified\": \"{{DateModified}}\"\n            },\n            \"Body\": {\n                \"AdditionalKeys\": {\n                    \"KeySeries\": \"1000904\",\n                    \"KeySeason\": \"1000905\",\n                    \"KeyEpisode\": \"1000908\",\n                    \"ExternalKeySeries\": \"500504\",\n                    \"ExternalKeySeason\": \"500505\",\n                    \"ExternalKeyEpisode\": \"500508\"\n                },\n                \"Type\": \"Episode\",\n                \"Title\": \"DWWVW Aflevering 3\",\n                \"TitleInPlanning\": \"Voorjaar 2019 abcd\",\n                \"Description\": \"\",\n                \"Genre\": \"\",\n                \"NicamRating\": \"\",\n                \"SalesGenre\": \"Overig\",\n                \"SeasonNumber\": 1,\n                \"EpisodeNumber\": 3,\n                \"Distributor\": \"\",\n                \"Sequential\": \"False\",\n                \"ProductionYear\": \"0\",\n                \"ProductionCountry\": \"\",\n                \"Duration\": \"00:45:00\",\n                \"ContractNumber\": \"\",\n                \"Subtype\": \"\",\n                \"imdbTitle\": \"\",\n                \"imdbScore\": \"\",\n                \"Active\": \"True\",\n                \"CategoryKey\": \"\",\n                \"CompanyKey\": \"\"\n            }\n        }\n    ]\n}"
+				},
+				"url": {
+					"raw": "{{Environment}}/whatson/whatson-adapter/api/Product",
+					"host": [
+						"{{Environment}}"
+					],
+					"path": [
+						"whatson",
+						"whatson-adapter",
+						"api",
+						"Product"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Episode/Episode 4",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "e8e216b9-a49d-4dd6-ba57-d89971665294",
+						"exec": [
+							"var moment = require('moment')\r",
+							"pm.globals.set(\"DateModified\", moment().format(\"YYYY-MM-DDTHH:mm:ss.000+02:00\"))\r",
+							"\r",
+							"//pm.environment.set(\"Start-Time\", moment().subtract(30, 'minutes').toISOString())\r",
+							"//pm.environment.set(\"End-Time\", moment().add(30, 'minutes').toISOString())"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "8f493e95-9172-478a-9c54-9e3f6c6b88d5",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([201,202]);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"Products\": [\n        {\n            \"Header\": {\n                \"Key\": \"1000909\",\n                \"ExternalKey\": \"500509\",\n                \"DateCreated\": \"2019-05-27T10:47:21.440+02:00\",\n                \"DateModified\": \"{{DateModified}}\"\n            },\n            \"Body\": {\n                \"AdditionalKeys\": {\n                    \"KeySeries\": \"1000904\",\n                    \"KeySeason\": \"1000905\",\n                    \"KeyEpisode\": \"1000909\",\n                    \"ExternalKeySeries\": \"500504\",\n                    \"ExternalKeySeason\": \"500505\",\n                    \"ExternalKeyEpisode\": \"500509\"\n                },\n                \"Type\": \"Episode\",\n                \"Title\": \"DWVWW Aflevering 4\",\n                \"TitleInPlanning\": \"Voorjaar 2019 abcd\",\n                \"Description\": \"\",\n                \"Genre\": \"\",\n                \"NicamRating\": \"\",\n                \"SalesGenre\": \"Overig\",\n                \"SeasonNumber\": 1,\n                \"EpisodeNumber\": 4,\n                \"Distributor\": \"\",\n                \"Sequential\": \"False\",\n                \"ProductionYear\": \"0\",\n                \"ProductionCountry\": \"\",\n                \"Duration\": \"00:45:00\",\n                \"ContractNumber\": \"\",\n                \"Subtype\": \"\",\n                \"imdbTitle\": \"\",\n                \"imdbScore\": \"\",\n                \"Active\": \"True\",\n                \"CategoryKey\": \"\",\n                \"CompanyKey\": \"\"\n            }\n        }\n    ]\n}"
+				},
+				"url": {
+					"raw": "{{Environment}}/whatson/whatson-adapter/api/Product",
+					"host": [
+						"{{Environment}}"
+					],
+					"path": [
+						"whatson",
+						"whatson-adapter",
+						"api",
+						"Product"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Program Film",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "e8e216b9-a49d-4dd6-ba57-d89971665294",
+						"exec": [
+							"var moment = require('moment')\r",
+							"pm.globals.set(\"DateModified\", moment().format(\"YYYY-MM-DDTHH:mm:ss.000+02:00\"))\r",
+							"\r",
+							"//pm.environment.set(\"Start-Time\", moment().subtract(30, 'minutes').toISOString())\r",
+							"//pm.environment.set(\"End-Time\", moment().add(30, 'minutes').toISOString())"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "8f493e95-9172-478a-9c54-9e3f6c6b88d5",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([201,202]);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"Products\": [\n        {\n            \"Header\": {\n                \"Key\": \"316461\",\n                \"ExternalKey\": \"316461\",\n                \"DateCreated\": \"2019-05-06T20:19:18.639+02:00\",\n                \"DateModified\": \"{{DateModified}}\"\n            },\n            \"Body\": {\n                \"AdditionalKeys\": {\n                    \"KeySeries\": \"165740\",\n                    \"KeySeason\": \"\",\n                    \"KeyEpisode\": \"316461\",\n                    \"ExternalKeySeries\": \"165740\",\n                    \"ExternalKeySeason\": \"\",\n                    \"ExternalKeyEpisode\": \"316461\"\n                },\n                \"Type\": \"Episode\",\n                \"Title\": \"The Expendables 3\",\n                \"TitleInPlanning\": \"The Expendables 3\",\n                \"Description\": \"Barney, Christmas en de rest van de Expendables komen oog in oog te staan met Conrad Stonebanks, die jaren geleden samen met Barney het team oprichtte. Stonebanks ontpopte zich als een meedogenloze wapenhandelaar en daarom besloot Barney hem te elimineren. Maar nu blijkt dat Stonebanks nog leeft en maar één missie heeft: de Expendables uit de weg ruimen. Barney kiest ervoor om hem met een nieuw, jong team uit te schakelen. De strijd mondt uit in een clash tussen oude rotten en een hightechgeneratie.\",\n                \"Genre\": \"Actie,Thriller\",\n                \"NicamRating\": \"\",\n                \"SalesGenre\": \"Film\",\n                \"SeasonNumber\": 0,\n                \"EpisodeNumber\": 0,\n                \"Distributor\": \"E1 Entertainment\",\n                \"Sequential\": \"False\",\n                \"ProductionYear\": \"2013\",\n                \"ProductionCountry\": \"USA\",\n                \"Duration\": \"01:55:33\",\n                \"ContractNumber\": \"FIC05635,FIC05081\",\n                \"Subtype\": \"Film\",\n                \"imdbTitle\": \"\",\n                \"imdbScore\": \"\",\n                \"Active\": \"True\",\n                \"CategoryKey\": \"\",\n                \"CompanyKey\": \"\"\n            }\n        }\n    ]\n}"
+				},
+				"url": {
+					"raw": "{{Environment}}/whatson/whatson-adapter/api/Product",
+					"host": [
+						"{{Environment}}"
+					],
+					"path": [
+						"whatson",
+						"whatson-adapter",
+						"api",
+						"Product"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Program Documentaire",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "e8e216b9-a49d-4dd6-ba57-d89971665294",
+						"exec": [
+							"var moment = require('moment')\r",
+							"pm.globals.set(\"DateModified\", moment().format(\"YYYY-MM-DDTHH:mm:ss.000+02:00\"))\r",
+							"\r",
+							"//pm.environment.set(\"Start-Time\", moment().subtract(30, 'minutes').toISOString())\r",
+							"//pm.environment.set(\"End-Time\", moment().add(30, 'minutes').toISOString())"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "8f493e95-9172-478a-9c54-9e3f6c6b88d5",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([201,202]);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"Products\": [\n        {\n            \"Header\": {\n                \"Key\": \"1002517\",\n                \"ExternalKey\": \"502117\",\n                \"DateCreated\": \"2019-08-21T15:02:56.563+02:00\",\n                \"DateModified\": \"{{DateModified}}\"\n            },\n            \"Body\": {\n                \"AdditionalKeys\": {\n                    \"KeySeries\": \"165741\",\n                    \"KeySeason\": \"\",\n                    \"KeyEpisode\": \"1002517\",\n                    \"ExternalKeySeries\": \"165741\",\n                    \"ExternalKeySeason\": \"\",\n                    \"ExternalKeyEpisode\": \"502117\"\n                },\n                \"Type\": \"Episode\",\n                \"Title\": \"Documentaire\",\n                \"TitleInPlanning\": \"Documentaire\",\n                \"Description\": \"long description printed press long description printed press long description printed press long description printed press long description printed press long description printed press long description printed press long description printed press long description printed press long description printed press long description printed press long description printed press long description printed press long description printed press long description printed press long description printed pre\",\n                \"Genre\": \"\",\n                \"NicamRating\": \"12-std\",\n                \"SalesGenre\": \"\",\n                \"SeasonNumber\": 0,\n                \"EpisodeNumber\": 0,\n                \"Distributor\": \"\",\n                \"Sequential\": \"False\",\n                \"ProductionYear\": \"2019\",\n                \"ProductionCountry\": \"Netherlands\",\n                \"Duration\": \"01:00:00\",\n                \"ContractNumber\": \"\",\n                \"Subtype\": \"Documentaire\",\n                \"imdbTitle\": \"\",\n                \"imdbScore\": \"\",\n                \"Active\": \"True\",\n                \"CategoryKey\": \"\",\n                \"CompanyKey\": \"\"\n            }\n        }\n    ]\n}"
+				},
+				"url": {
+					"raw": "{{Environment}}/whatson/whatson-adapter/api/Product",
+					"host": [
+						"{{Environment}}"
+					],
+					"path": [
+						"whatson",
+						"whatson-adapter",
+						"api",
+						"Product"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Program Cabaret",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "e8e216b9-a49d-4dd6-ba57-d89971665294",
+						"exec": [
+							"var moment = require('moment')\r",
+							"pm.globals.set(\"DateModified\", moment().format(\"YYYY-MM-DDTHH:mm:ss.000+02:00\"))\r",
+							"\r",
+							"//pm.environment.set(\"Start-Time\", moment().subtract(30, 'minutes').toISOString())\r",
+							"//pm.environment.set(\"End-Time\", moment().add(30, 'minutes').toISOString())"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "8f493e95-9172-478a-9c54-9e3f6c6b88d5",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([201,202]);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"Products\": [\n        {\n            \"Header\": {\n                \"Key\": \"1002515\",\n                \"ExternalKey\": \"502115\",\n                \"DateCreated\": \"2019-08-21T14:20:35.843+02:00\",\n                \"DateModified\": \"{{DateModified}}\"\n            },\n            \"Body\": {\n                \"AdditionalKeys\": {\n                    \"KeySeries\": \"165742\",\n                    \"KeySeason\": \"\",\n                    \"KeyEpisode\": \"1002515\",\n                    \"ExternalKeySeries\": \"165742\",\n                    \"ExternalKeySeason\": \"\",\n                    \"ExternalKeyEpisode\": \"502115\"\n                },\n                \"Type\": \"Episode\",\n                \"Title\": \"Cabaretteketet\",\n                \"TitleInPlanning\": \"Cabaretteketet\",\n                \"Description\": \"Long description. Program - cabaret \",\n                \"Genre\": \"Actie:Psychologisch\",\n                \"NicamRating\": \"12-h\",\n                \"SalesGenre\": \"\",\n                \"SeasonNumber\": 0,\n                \"EpisodeNumber\": 0,\n                \"Distributor\": \"\",\n                \"Sequential\": \"False\",\n                \"ProductionYear\": \"2018\",\n                \"ProductionCountry\": \"Bulgaria,Austria\",\n                \"Duration\": \"01:00:00\",\n                \"ContractNumber\": \"\",\n                \"Subtype\": \"Cabaret\",\n                \"imdbTitle\": \"\",\n                \"imdbScore\": \"\",\n                \"Active\": \"True\",\n                \"CategoryKey\": \"\",\n                \"CompanyKey\": \"\"\n            }\n        }\n    ]\n}"
+				},
+				"url": {
+					"raw": "{{Environment}}/whatson/whatson-adapter/api/Product",
+					"host": [
+						"{{Environment}}"
+					],
+					"path": [
+						"whatson",
+						"whatson-adapter",
+						"api",
+						"Product"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Program Muziek",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "e8e216b9-a49d-4dd6-ba57-d89971665294",
+						"exec": [
+							"var moment = require('moment')\r",
+							"pm.globals.set(\"DateModified\", moment().format(\"YYYY-MM-DDTHH:mm:ss.000+02:00\"))\r",
+							"\r",
+							"//pm.environment.set(\"Start-Time\", moment().subtract(30, 'minutes').toISOString())\r",
+							"//pm.environment.set(\"End-Time\", moment().add(30, 'minutes').toISOString())"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "8f493e95-9172-478a-9c54-9e3f6c6b88d5",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([201,202]);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"Products\": [\n        {\n            \"Header\": {\n                \"Key\": \"1002516\",\n                \"ExternalKey\": \"502116\",\n                \"DateCreated\": \"2019-08-21T14:31:16.152+02:00\",\n                \"DateModified\": \"{{DateModified}}\"\n            },\n            \"Body\": {\n                \"AdditionalKeys\": {\n                    \"KeySeries\": \"165743\",\n                    \"KeySeason\": \"\",\n                    \"KeyEpisode\": \"1002516\",\n                    \"ExternalKeySeries\": \"165743\",\n                    \"ExternalKeySeason\": \"\",\n                    \"ExternalKeyEpisode\": \"502116\"\n                },\n                \"Type\": \"Episode\",\n                \"Title\": \"Music was my first love\",\n                \"TitleInPlanning\": \"Music was my first love\",\n                \"Description\": \"And it will be my last... Music of the Future Music of the Past\",\n                \"Genre\": \"Documentaire:Muziek,Lifestyle:muziek\",\n                \"NicamRating\": \"12-gasdh\",\n                \"SalesGenre\": \"\",\n                \"SeasonNumber\": 0,\n                \"EpisodeNumber\": 0,\n                \"Distributor\": \"\",\n                \"Sequential\": \"False\",\n                \"ProductionYear\": \"2018\",\n                \"ProductionCountry\": \"Colombia\",\n                \"Duration\": \"00:52:23\",\n                \"ContractNumber\": \"\",\n                \"Subtype\": \"Muziek\",\n                \"imdbTitle\": \"\",\n                \"imdbScore\": \"\",\n                \"Active\": \"True\",\n                \"CategoryKey\": \"\",\n                \"CompanyKey\": \"\"\n            }\n        }\n    ]\n}"
+				},
+				"url": {
+					"raw": "{{Environment}}/whatson/whatson-adapter/api/Product",
+					"host": [
+						"{{Environment}}"
+					],
+					"path": [
+						"whatson",
+						"whatson-adapter",
+						"api",
+						"Product"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Episode Empty Body",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "e8e216b9-a49d-4dd6-ba57-d89971665294",
+						"exec": [
+							"var moment = require('moment')\r",
+							"pm.globals.set(\"DateModified\", moment().format(\"YYYY-MM-DDTHH:mm:ss.000+02:00\"))\r",
+							"\r",
+							"//pm.environment.set(\"Start-Time\", moment().subtract(30, 'minutes').toISOString())\r",
+							"//pm.environment.set(\"End-Time\", moment().add(30, 'minutes').toISOString())"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "ffada1ec-3234-4317-ac31-4444ce913e39",
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Products\": [\r\n        {\r\n            \"Header\": {\r\n                \"Key\": \"1002508\",\r\n                \"ExternalKey\": \"502108\",\r\n                \"DateCreated\": \"2019-08-22T16:47:20.316+02:00\",\r\n                \"DateModified\": \"2019-08-22T16:47:20.316+02:00\"\r\n            },\r\n            \"Body\": {\r\n                \"AdditionalKeys\": {\r\n                    \"KeySeries\": \"\",\r\n                    \"KeySeason\": \"\",\r\n                    \"KeyEpisode\": \"\",\r\n                    \"ExternalKeySeries\": \"\",\r\n                    \"ExternalKeySeason\": \"\",\r\n                    \"ExternalKeyEpisode\": \"\"\r\n                },\r\n                \"Type\": \"\",\r\n                \"Title\": \"\",\r\n                \"TitleInPlanning\": \"\",\r\n                \"Description\": \"\",\r\n                \"Genre\": \"\",\r\n                \"NicamRating\": \"\",\r\n                \"SalesGenre\": \"\",\r\n                \"SeasonNumber\": 0,\r\n                \"EpisodeNumber\": 0,\r\n                \"Distributor\": \"\",\r\n                \"Sequential\": \"\",\r\n                \"ProductionYear\": \"0\",\r\n                \"ProductionCountry\": \"\",\r\n                \"Duration\": \"\",\r\n                \"ContractNumber\": \"\",\r\n                \"Subtype\": \"\",\r\n                \"imdbTitle\": \"\",\r\n                \"imdbScore\": \"\",\r\n                \"Active\": \"False\",\r\n                \"CategoryKey\": \"\",\r\n                \"CompanyKey\": \"\"\r\n            }\r\n        }\r\n    ]\r\n}"
+				},
+				"url": {
+					"raw": "{{Environment}}/whatson/whatson-adapter/api/Product",
+					"host": [
+						"{{Environment}}"
+					],
+					"path": [
+						"whatson",
+						"whatson-adapter",
+						"api",
+						"Product"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "a3219e06-9115-4d40-b91a-28cbe604e327",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "ec6ee44f-91f7-464a-9e69-54fbe11bc99a",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
